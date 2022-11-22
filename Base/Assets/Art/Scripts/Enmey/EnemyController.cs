@@ -19,10 +19,12 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerTransV3 = new Vector3 (transform.position.x, transform.position.y, playerTrans.position.z);
+        playerTransV3 = new Vector3 (playerTrans.position.x, playerTrans.position.y, playerTrans.position.z);
         Movement();
         Attack();
-        transform.LookAt(playerTransV3);
+        Vector3 dir = playerTransV3 - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     void Movement()
