@@ -38,6 +38,13 @@ public class EnemyController : MonoBehaviour
 
     void Attack()
     {
-
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            isAttacking = true;
+        }
+        else
+        {
+            isAttacking = false;
+        }
     }
 }

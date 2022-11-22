@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SwordController : MonoBehaviour
 {
-    public PlayerController PC; 
+    public PlayerController PC;
+    public EnemyController EC;
     public Animator swordEffect;
     // Start is called before the first frame update
     void Start()
@@ -15,10 +16,22 @@ public class SwordController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PC.isAttacking)
+        if (PC != null)
         {
-            StartCoroutine(AttackAnim());
+            if (PC.isAttacking)
+            {
+                StartCoroutine(AttackAnim());
+            }
         }
+        
+        if (EC != null)
+        {
+            if (EC.isAttacking)
+            {
+                StartCoroutine(AttackAnim());
+            }
+        }
+       
     }
 
     IEnumerator AttackAnim()
