@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GlobalVary : MonoBehaviour
 {
-
-    
     public int enemyKillCountGun;
     public int enemyKillCountSword;
     public int enemyKillCountTotal; 
