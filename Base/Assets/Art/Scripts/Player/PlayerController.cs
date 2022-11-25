@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
     public float Hmovement;
     public float Vmovement;
     public bool isAttacking;
+
+
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +46,14 @@ public class PlayerController : MonoBehaviour
         else
         {
             isAttacking = false;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "EnemyWeapon")
+        {
+            Destroy(this.gameObject);
         }
     }
 }

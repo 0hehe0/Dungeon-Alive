@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - EnemyBody
+  - EnemyWeapon
+  - PlayerBody
+  - PlayerWeapon
   layers:
   - Default
   - TransparentFX
@@ -43,6 +47,9 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 1523159639
+    locked: 0
+  - name: Effect
+    uniqueID: 3256350477
     locked: 0
   - name: Item
     uniqueID: 2745289653

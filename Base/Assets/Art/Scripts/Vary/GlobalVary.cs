@@ -18,4 +18,14 @@ public class GlobalVary : MonoBehaviour
     {
         enemyKillCountTotal = enemyKillCountGun + enemyKillCountSword;
     }
+
+    public void SwordCount()
+    {
+        enemyKillCountSword++;
+    }
+
+    public void GunCount()
+    {
+        enemyKillCountSword++;
+    }
 }

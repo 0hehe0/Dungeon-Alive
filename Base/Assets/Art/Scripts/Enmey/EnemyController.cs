@@ -168,4 +168,13 @@ public class EnemyController : MonoBehaviour
             isAttacking = false;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerWeapon")
+        {
+            GV.SwordCount();
+            Destroy(this.gameObject);
+        }
+    }
 }

@@ -6,6 +6,7 @@ public class SwordController : MonoBehaviour
 {
     public PlayerController PC;
     public EnemyController EC;
+    public GameObject Box;
     public Animator swordEffect;
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,15 @@ public class SwordController : MonoBehaviour
     IEnumerator AttackAnim()
     {
         swordEffect.SetInteger("isAtking", 1);
+        if (Box != null)
+        {
+            Box.SetActive(true);
+        }
         yield return new WaitForSeconds(0.4f);
         swordEffect.SetInteger("isAtking", 0);
+        if (Box != null)
+        {
+            Box.SetActive(false);
+        }
     }
 }
