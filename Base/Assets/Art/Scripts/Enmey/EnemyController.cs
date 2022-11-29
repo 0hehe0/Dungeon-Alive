@@ -22,9 +22,13 @@ public class EnemyController : MonoBehaviour
     public float shakeTime = 0.5f;
     public float shakeDertaTime = 0.1f;
 
-    public Rigidbody2D enemyRb;
+    public Renderer ren;
 
     public int enemyState;
+
+    public float colorChange = 2f;
+    public Color colorStart = Color.white;
+    public Color colorEnd = Color.red;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +36,9 @@ public class EnemyController : MonoBehaviour
         distance = Vector2.Distance(transform.position, playerTrans.position);
 
         rand = Random.value;
+
+        ren = GetComponent<Renderer>();
+
     }
 
     // Update is called once per frame
@@ -62,6 +69,18 @@ public class EnemyController : MonoBehaviour
         {
             enemyState = 2;
             LookAt();
+
+            ren.material.color = Color.red;
+
+            /*
+            if (colorChange >= 0f)
+            {
+
+                Color.Lerp(colorStart, Color.red, Mathf.PingPong(Time.time, 1f));
+
+                colorChange -= Time.deltaTime;
+            }
+            */
         }
         else if (GV.enemyKillCountSword > 30 && GV.enemyKillCountSword < 50 && GV.enemyKillCountGun == 0 && distance < 10)
         {
@@ -71,6 +90,7 @@ public class EnemyController : MonoBehaviour
         else if (GV.enemyKillCountGun > 0 && GV.enemyKillCountGun < 30)
         {
             enemyState = 4;
+            ren.material.color = Color.blue;
         }
         else if (GV.enemyKillCountGun > 30)
         {
@@ -80,6 +100,7 @@ public class EnemyController : MonoBehaviour
         {
             enemyState = 0;
             LookAt();
+            ren.material.color = Color.green;
         }
         else
         {
