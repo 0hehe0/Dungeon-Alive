@@ -45,12 +45,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: UI
-    uniqueID: 1523159639
+  - name: Back
+    uniqueID: 2419136843
+    locked: 0
+  - name: Player
+    uniqueID: 2745289653
+    locked: 0
+  - name: Item
+    uniqueID: 1509815039
+    locked: 0
+  - name: Front
+    uniqueID: 300305801
     locked: 0
   - name: Effect
     uniqueID: 3256350477
     locked: 0
-  - name: Item
-    uniqueID: 2745289653
+  - name: UI
+    uniqueID: 1523159639
     locked: 0
