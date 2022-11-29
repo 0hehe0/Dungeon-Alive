@@ -6,29 +6,26 @@ public class EnemyController : MonoBehaviour
 {
     public Transform playerTrans;
     public Vector3 playerTransV3;
+
     public float speed;
     public float escapeSpeed;
-    public bool isAttacking;
+
     public float distance;
+
+    public bool isAttacking;
     public float attackTimeCheck;
     public float attackCD;
+
     public GlobalVary GV;
-    public int level = 0;
     public GameObject weapon;
     public GameObject shield;
-    public float rand;
-
-    public Vector3 shakeRate = new Vector2(.001f, .001f);
-    public float shakeTime = 0.5f;
-    public float shakeDertaTime = 0.1f;
-
     public Renderer ren;
 
-    public int enemyState;
+    public int level = 0;
 
-    public float colorChange = 2f;
-    public Color colorStart = Color.white;
-    public Color colorEnd = Color.red;
+    public float rand;
+
+    public int enemyState;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +35,6 @@ public class EnemyController : MonoBehaviour
         rand = Random.value;
 
         ren = GetComponent<Renderer>();
-
     }
 
     // Update is called once per frame
@@ -60,48 +56,38 @@ public class EnemyController : MonoBehaviour
 
     void State()
     {
-        if (GV.enemyKillCountTotal == 0 && level <= 2)
+        if (level > 2 && GV.enemyKillCountTotal == 0)
+        {
+            enemyState = 0;
+            LookAt();
+        }
+        else if (GV.enemyKillCountTotal >= 0 && GV.enemyKillCountTotal < 5 && level <= 2)
         {
             enemyState = 1;
             LookAt();
         }
-        else if (GV.enemyKillCountSword > 10 && GV.enemyKillCountSword < 30 && GV.enemyKillCountGun == 0 && distance < 10)
+        else if (GV.enemyKillCountSword >= 5 && GV.enemyKillCountSword < 15 && GV.enemyKillCountGun == 0 && distance < 10)
         {
             enemyState = 2;
             LookAt();
 
             ren.material.color = Color.red;
-
-            /*
-            if (colorChange >= 0f)
-            {
-
-                Color.Lerp(colorStart, Color.red, Mathf.PingPong(Time.time, 1f));
-
-                colorChange -= Time.deltaTime;
-            }
-            */
         }
-        else if (GV.enemyKillCountSword > 30 && GV.enemyKillCountSword < 50 && GV.enemyKillCountGun == 0 && distance < 10)
+        else if (GV.enemyKillCountSword >= 15 && GV.enemyKillCountSword < 25 && GV.enemyKillCountGun == 0 && distance < 10)
         {
             enemyState = 3;
             LookAt();
         }
-        else if (GV.enemyKillCountGun > 0 && GV.enemyKillCountGun < 30)
+        else if (GV.enemyKillCountGun > 0 && GV.enemyKillCountGun < 5)
         {
             enemyState = 4;
             ren.material.color = Color.blue;
         }
-        else if (GV.enemyKillCountGun > 30)
+        else if (GV.enemyKillCountGun >= 5)
         {
             enemyState = 5;
         }
-        else if (level > 2 && GV.enemyKillCountTotal == 0)
-        {
-            enemyState = 0;
-            LookAt();
-            ren.material.color = Color.green;
-        }
+        // 过了守卫关之后， 玩家收起武器 敌人也会收起武器 前提是玩家不杀人
         else
         {
             enemyState = -1;
@@ -211,7 +197,7 @@ public class EnemyController : MonoBehaviour
             LookAt();
             weapon.SetActive(false);
             shield.SetActive(false);
-            StartCoroutine(Shake_Coroutine());
+            StartCoroutine(Shake(1f, .01f));
         }
         else if (enemyState == 0)
         {
@@ -232,16 +218,21 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public IEnumerator Shake_Coroutine()
+    public IEnumerator Shake(float duration, float magnitude)
     {
-        var oriPosition = gameObject.transform.position;
-        for (float i = 0; i < shakeTime; i += shakeDertaTime)
+        Vector3 originalPos = transform.position;
+        float elapsed = 0.0f;
+        while (elapsed < duration)
         {
-            gameObject.transform.position = oriPosition +
-                Random.Range(-shakeRate.x, shakeRate.x) * Vector3.right +
-                Random.Range(-shakeRate.y, shakeRate.y) * Vector3.up;
-            yield return new WaitForSeconds(shakeDertaTime);
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
+
+            transform.position = new Vector3(x + originalPos.x, y + originalPos.y, originalPos.z);
+            elapsed += Time.deltaTime;
+            yield return null;
         }
-        gameObject.transform.position = oriPosition;
+
+        transform.position = originalPos;
+
     }
 }
