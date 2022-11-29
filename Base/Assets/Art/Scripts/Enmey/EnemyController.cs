@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     public Transform playerTrans;
     public Vector3 playerTransV3;
     public float speed;
+    public float escapeSpeed;
     public bool isAttacking;
     public float distance;
     public float attackTimeCheck;
@@ -14,7 +15,14 @@ public class EnemyController : MonoBehaviour
     public GlobalVary GV;
     public int level = 0;
     public GameObject weapon;
+    public GameObject shield;
     public float rand;
+
+    public Vector3 shakeRate = new Vector2(.001f, .001f);
+    public float shakeTime = 0.5f;
+    public float shakeDertaTime = 0.1f;
+
+    public Rigidbody2D enemyRb;
 
     public int enemyState;
 
@@ -50,12 +58,12 @@ public class EnemyController : MonoBehaviour
             enemyState = 1;
             LookAt();
         }
-        else if (GV.enemyKillCountSword > 10 && GV.enemyKillCountSword < 30 && GV.enemyKillCountGun == 0)
+        else if (GV.enemyKillCountSword > 10 && GV.enemyKillCountSword < 30 && GV.enemyKillCountGun == 0 && distance < 10)
         {
             enemyState = 2;
             LookAt();
         }
-        else if (GV.enemyKillCountSword > 30 && GV.enemyKillCountSword < 50 && GV.enemyKillCountGun == 0)
+        else if (GV.enemyKillCountSword > 30 && GV.enemyKillCountSword < 50 && GV.enemyKillCountGun == 0 && distance < 10)
         {
             enemyState = 3;
             LookAt();
@@ -73,11 +81,19 @@ public class EnemyController : MonoBehaviour
             enemyState = 0;
             LookAt();
         }
+        else
+        {
+            enemyState = -1;
+        }
     }
 
     void Attack()
     {
-        if (enemyState == 1)
+        if (enemyState == -1)
+        {
+            LookAt();
+        }
+        else if (enemyState == 1)
         {
             attackTimeCheck -= Time.deltaTime;
 
@@ -121,7 +137,6 @@ public class EnemyController : MonoBehaviour
             {
                 speed = 3;
             }
-
         }
         else if (enemyState == 3)
         {
@@ -146,7 +161,6 @@ public class EnemyController : MonoBehaviour
             {
                 speed = 3;
             }
-
         }
         else if (enemyState == 4)
         {
@@ -154,10 +168,29 @@ public class EnemyController : MonoBehaviour
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
+            if (transform.position.x > playerTransV3.x && transform.position.y > playerTransV3.y && distance < 10)
+            {
+                transform.position = new Vector3(transform.position.x + escapeSpeed * Time.deltaTime, transform.position.y + escapeSpeed * Time.deltaTime, transform.position.z);
+            }
+            else if (transform.position.x > playerTransV3.x && transform.position.y < playerTransV3.y && distance < 10)
+            {
+                transform.position = new Vector3(transform.position.x + escapeSpeed * Time.deltaTime, transform.position.y - escapeSpeed * Time.deltaTime, transform.position.z);
+            }
+            else if (transform.position.x < playerTransV3.x && transform.position.y > playerTransV3.y && distance < 10)
+            {
+                transform.position = new Vector3(transform.position.x - escapeSpeed * Time.deltaTime, transform.position.y + escapeSpeed * Time.deltaTime, transform.position.z);
+            }
+            else if (transform.position.x < playerTransV3.x && transform.position.y < playerTransV3.y && distance < 10)
+            {
+                transform.position = new Vector3(transform.position.x - escapeSpeed * Time.deltaTime, transform.position.y - escapeSpeed * Time.deltaTime, transform.position.z);
+            }
         }
         else if (enemyState == 5)
         {
-
+            LookAt();
+            weapon.SetActive(false);
+            shield.SetActive(false);
+            StartCoroutine(Shake_Coroutine());
         }
         else if (enemyState == 0)
         {
@@ -176,5 +209,18 @@ public class EnemyController : MonoBehaviour
             GV.SwordCount();
             Destroy(this.gameObject);
         }
+    }
+
+    public IEnumerator Shake_Coroutine()
+    {
+        var oriPosition = gameObject.transform.position;
+        for (float i = 0; i < shakeTime; i += shakeDertaTime)
+        {
+            gameObject.transform.position = oriPosition +
+                Random.Range(-shakeRate.x, shakeRate.x) * Vector3.right +
+                Random.Range(-shakeRate.y, shakeRate.y) * Vector3.up;
+            yield return new WaitForSeconds(shakeDertaTime);
+        }
+        gameObject.transform.position = oriPosition;
     }
 }

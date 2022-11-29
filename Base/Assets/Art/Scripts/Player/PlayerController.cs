@@ -9,9 +9,6 @@ public class PlayerController : MonoBehaviour
     public float Vmovement;
     public bool isAttacking;
 
-
-
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +27,6 @@ public class PlayerController : MonoBehaviour
 
     void Movement()
     {
-
-       
         Hmovement = Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
         Vmovement = Input.GetAxisRaw("Vertical") * speed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x + Hmovement, transform.position.y + Vmovement, transform.position.z);

@@ -1640,7 +1640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1542470073}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.47, y: -3.6163535, z: 0}
+  m_LocalPosition: {x: 7.73, y: -9.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1664,6 +1664,7 @@ MonoBehaviour:
   playerTrans: {fileID: 774350367}
   playerTransV3: {x: 0, y: 0, z: 0}
   speed: 3
+  escapeSpeed: 5
   isAttacking: 0
   distance: 0
   attackTimeCheck: 0
@@ -1671,7 +1672,12 @@ MonoBehaviour:
   GV: {fileID: 1212797418}
   level: 1
   weapon: {fileID: 1740072533}
+  shield: {fileID: 1295683293}
   rand: 0
+  shakeRate: {x: 0.1, y: 0.1, z: 0.1}
+  shakeTime: 0.5
+  shakeDertaTime: 0.1
+  enemyRb: {fileID: 1542470078}
   enemyState: 2
 --- !u!50 &1542470078
 Rigidbody2D:
