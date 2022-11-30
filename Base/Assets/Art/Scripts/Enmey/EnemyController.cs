@@ -216,6 +216,11 @@ public class EnemyController : MonoBehaviour
             GV.SwordCount();
             Destroy(this.gameObject);
         }
+        else if (collision.gameObject.tag == "Bullet")
+        {
+            GV.GunCount();
+            Destroy(this.gameObject);
+        }
     }
 
     public IEnumerator Shake(float duration, float magnitude)

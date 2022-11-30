@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GlobalVary : MonoBehaviour
 {
-    public int enemyKillCountGun;
-    public int enemyKillCountSword;
-    public int enemyKillCountTotal; 
+    public int enemyKillCountGun = 0;
+    public int enemyKillCountSword = 0;
+    public int enemyKillCountTotal = 0; 
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +26,6 @@ public class GlobalVary : MonoBehaviour
 
     public void GunCount()
     {
-        enemyKillCountSword++;
+        enemyKillCountGun++;
     }
 }

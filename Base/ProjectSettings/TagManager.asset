@@ -8,6 +8,8 @@ TagManager:
   - EnemyWeapon
   - PlayerBody
   - PlayerWeapon
+  - Wall
+  - Bullet
   layers:
   - Default
   - TransparentFX
