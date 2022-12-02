@@ -5,11 +5,9 @@ using UnityEngine;
 public class portal : MonoBehaviour
 {
 
-    public Transform goToPos;
+    public Vector3 goToPos;
 
     private Transform playerPos;
-
-    public Vector3 playerPosV3;
 
     // Start is called before the first frame update
     void Start()
@@ -20,14 +18,13 @@ public class portal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerPosV3 = playerPos.position;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "PlayerBody")
         {
-            playerPos.transform.position = new Vector3(2, 4, 0);
+            playerPos.transform.position = goToPos;
         }
     }
 }
