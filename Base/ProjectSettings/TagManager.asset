@@ -10,6 +10,7 @@ TagManager:
   - PlayerWeapon
   - Wall
   - Bullet
+  - Portal
   layers:
   - Default
   - TransparentFX
