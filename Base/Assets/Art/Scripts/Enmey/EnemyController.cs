@@ -66,12 +66,15 @@ public class EnemyController : MonoBehaviour
             enemyState = 1;
             LookAt();
         }
-        else if (GV.enemyKillCountSword >= 5 && GV.enemyKillCountSword < 15 && GV.enemyKillCountGun == 0 && distance < 10)
+        else if (GV.enemyKillCountSword >= 5 && GV.enemyKillCountSword < 15 && GV.enemyKillCountGun == 0)
         {
-            enemyState = 2;
-            LookAt();
-
             ren.material.color = Color.red;
+
+            if (distance < 10)
+            {
+                enemyState = 2;
+                LookAt();
+            }
         }
         else if (GV.enemyKillCountSword >= 15 && GV.enemyKillCountSword < 25 && GV.enemyKillCountGun == 0 && distance < 10)
         {
@@ -81,7 +84,7 @@ public class EnemyController : MonoBehaviour
         else if (GV.enemyKillCountGun > 0 && GV.enemyKillCountGun < 5)
         {
             enemyState = 4;
-            ren.material.color = Color.blue;
+            ren.material.color = Color.white;
         }
         else if (GV.enemyKillCountGun >= 5)
         {
