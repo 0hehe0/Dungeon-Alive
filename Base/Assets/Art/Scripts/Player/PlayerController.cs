@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     public float Hmovement;
     public float Vmovement;
     public bool isAttacking;
+    public GlobalVary GV;
+    public portal pt;
+    private bool move = true;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,7 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        RoomX();
     }
 
     void Movement()
@@ -49,6 +53,19 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "EnemyWeapon")
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    void RoomX()
+    {
+        if (GV.enemyKillCountSword > 30)
+        {
+            if (move)
+            {
+                pt.goToPos = transform.position;
+                transform.position = new Vector3(-142.5f, -21f, 0);
+                move = false;
+            }
         }
     }
 }
