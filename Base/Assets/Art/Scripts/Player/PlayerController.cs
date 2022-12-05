@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public portal pt;
     private bool move = true;
 
+    public GameObject B1;
+    public GameObject B2;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +55,34 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "EnemyWeapon")
         {
             Destroy(this.gameObject);
+        }
+
+        if (collision.gameObject.tag == "GunDrop")
+        {
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "B1")
+        {
+            B1.SetActive(true);
+        }
+
+        if (collision.gameObject.tag == "B2")
+        {
+            B2.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "B1")
+        {
+            B1.SetActive(false);
+        }
+
+        if (collision.gameObject.tag == "B2")
+        {
+            B2.SetActive(false);
         }
     }
 

@@ -11,6 +11,9 @@ TagManager:
   - Wall
   - Bullet
   - Portal
+  - GunDrop
+  - B1
+  - B2
   layers:
   - Default
   - TransparentFX
@@ -51,11 +54,11 @@ TagManager:
   - name: Back
     uniqueID: 2419136843
     locked: 0
-  - name: Player
-    uniqueID: 2745289653
-    locked: 0
   - name: Item
     uniqueID: 1509815039
+    locked: 0
+  - name: Player
+    uniqueID: 2745289653
     locked: 0
   - name: Front
     uniqueID: 300305801
