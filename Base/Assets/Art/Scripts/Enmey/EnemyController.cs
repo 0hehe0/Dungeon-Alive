@@ -69,11 +69,11 @@ public class EnemyController : MonoBehaviour
         else if (GV.enemyKillCountSword >= 5 && GV.enemyKillCountSword < 15 && GV.enemyKillCountGun == 0)
         {
             ren.material.color = Color.red;
+            LookAt();
 
             if (distance < 10)
             {
                 enemyState = 2;
-                LookAt();
             }
         }
         else if (GV.enemyKillCountSword >= 15 && GV.enemyKillCountSword < 25 && GV.enemyKillCountGun == 0 && distance < 10)
@@ -90,7 +90,6 @@ public class EnemyController : MonoBehaviour
         {
             enemyState = 5;
         }
-        // 过了守卫关之后， 玩家收起武器 敌人也会收起武器 前提是玩家不杀人
         else
         {
             enemyState = -1;
@@ -122,6 +121,9 @@ public class EnemyController : MonoBehaviour
         }
         else if (enemyState == 2)
         {
+            weapon.SetActive(true);
+            shield.SetActive(true);
+
             if (rand >= .5f)
             {
                 transform.position = Vector2.MoveTowards(transform.position, playerTrans.position, speed * Time.deltaTime);
@@ -205,6 +207,7 @@ public class EnemyController : MonoBehaviour
         else if (enemyState == 0)
         {
             weapon.SetActive(false);
+            shield.SetActive(false);
         }
         else
         {
