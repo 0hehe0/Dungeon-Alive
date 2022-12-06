@@ -35,6 +35,7 @@ public class EnemyController : MonoBehaviour
         rand = Random.value;
 
         ren = GetComponent<Renderer>();
+        escapeSpeed = 4;
     }
 
     // Update is called once per frame
@@ -61,22 +62,22 @@ public class EnemyController : MonoBehaviour
             enemyState = 0;
             LookAt();
         }
-        else if (GV.enemyKillCountTotal >= 0 && GV.enemyKillCountTotal < 5 && level <= 2)
+        else if (GV.enemyKillCountTotal >= 0 && GV.enemyKillCountTotal < 1 && level <= 2)
         {
             enemyState = 1;
             LookAt();
         }
-        else if (GV.enemyKillCountSword >= 5 && GV.enemyKillCountSword < 15 && GV.enemyKillCountGun == 0)
+        else if (GV.enemyKillCountSword >= 1 && GV.enemyKillCountSword < 15 && GV.enemyKillCountGun == 0)
         {
             ren.material.color = Color.red;
             LookAt();
 
-            if (distance < 10)
+            if (distance < 15)
             {
                 enemyState = 2;
             }
         }
-        else if (GV.enemyKillCountSword >= 15 && GV.enemyKillCountSword < 25 && GV.enemyKillCountGun == 0 && distance < 10)
+        else if (GV.enemyKillCountSword >= 15 && GV.enemyKillCountSword < 25 && GV.enemyKillCountGun == 0 && distance < 15)
         {
             enemyState = 3;
             LookAt();
@@ -152,6 +153,9 @@ public class EnemyController : MonoBehaviour
         }
         else if (enemyState == 3)
         {
+            weapon.SetActive(true);
+            shield.SetActive(true);
+
             transform.position = Vector2.MoveTowards(transform.position, playerTrans.position, speed * Time.deltaTime);
             attackTimeCheck -= Time.deltaTime;
 
@@ -180,19 +184,19 @@ public class EnemyController : MonoBehaviour
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            if (transform.position.x > playerTransV3.x && transform.position.y > playerTransV3.y && distance < 10)
+            if (transform.position.x > playerTransV3.x && transform.position.y > playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x + escapeSpeed * Time.deltaTime, transform.position.y + escapeSpeed * Time.deltaTime, transform.position.z);
             }
-            else if (transform.position.x > playerTransV3.x && transform.position.y < playerTransV3.y && distance < 10)
+            else if (transform.position.x > playerTransV3.x && transform.position.y < playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x + escapeSpeed * Time.deltaTime, transform.position.y - escapeSpeed * Time.deltaTime, transform.position.z);
             }
-            else if (transform.position.x < playerTransV3.x && transform.position.y > playerTransV3.y && distance < 10)
+            else if (transform.position.x < playerTransV3.x && transform.position.y > playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x - escapeSpeed * Time.deltaTime, transform.position.y + escapeSpeed * Time.deltaTime, transform.position.z);
             }
-            else if (transform.position.x < playerTransV3.x && transform.position.y < playerTransV3.y && distance < 10)
+            else if (transform.position.x < playerTransV3.x && transform.position.y < playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x - escapeSpeed * Time.deltaTime, transform.position.y - escapeSpeed * Time.deltaTime, transform.position.z);
             }
@@ -202,7 +206,7 @@ public class EnemyController : MonoBehaviour
             LookAt();
             weapon.SetActive(false);
             shield.SetActive(false);
-            StartCoroutine(Shake(1f, .01f));
+            StartCoroutine(Shake(1f, .05f));
         }
         else if (enemyState == 0)
         {

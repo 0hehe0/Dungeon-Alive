@@ -25,6 +25,7 @@ public class VillagerController : MonoBehaviour
         ren = GetComponent<Renderer>();
 
         ren.material.color = Color.green;
+        escapeSpeed = 4;
     }
 
     // Update is called once per frame
@@ -79,19 +80,19 @@ public class VillagerController : MonoBehaviour
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            if (transform.position.x > playerTransV3.x && transform.position.y > playerTransV3.y && distance < 10)
+            if (transform.position.x > playerTransV3.x && transform.position.y > playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x + escapeSpeed * Time.deltaTime, transform.position.y + escapeSpeed * Time.deltaTime, transform.position.z);
             }
-            else if (transform.position.x > playerTransV3.x && transform.position.y < playerTransV3.y && distance < 10)
+            else if (transform.position.x > playerTransV3.x && transform.position.y < playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x + escapeSpeed * Time.deltaTime, transform.position.y - escapeSpeed * Time.deltaTime, transform.position.z);
             }
-            else if (transform.position.x < playerTransV3.x && transform.position.y > playerTransV3.y && distance < 10)
+            else if (transform.position.x < playerTransV3.x && transform.position.y > playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x - escapeSpeed * Time.deltaTime, transform.position.y + escapeSpeed * Time.deltaTime, transform.position.z);
             }
-            else if (transform.position.x < playerTransV3.x && transform.position.y < playerTransV3.y && distance < 10)
+            else if (transform.position.x < playerTransV3.x && transform.position.y < playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x - escapeSpeed * Time.deltaTime, transform.position.y - escapeSpeed * Time.deltaTime, transform.position.z);
             }
@@ -99,7 +100,7 @@ public class VillagerController : MonoBehaviour
         else if (enemyState == 2)
         {
             LookAt();
-            StartCoroutine(Shake(1f, .01f));
+            StartCoroutine(Shake(1f, .05f));
         }
         else
         {

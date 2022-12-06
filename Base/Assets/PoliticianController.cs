@@ -36,6 +36,8 @@ public class PoliticianController : MonoBehaviour
 
         weapon.SetActive(false);
         shield.SetActive(false);
+
+        escapeSpeed = 4;
     }
 
     // Update is called once per frame
@@ -73,18 +75,18 @@ public class PoliticianController : MonoBehaviour
             weapon.SetActive(true);
             shield.SetActive(true);
 
-            if (distance < 10)
+            if (distance < 15)
             {
                 enemyState = 1;
                 LookAt();
             }
         }
-        else if (GV.enemyKillCountGun > 0 && GV.enemyKillCountGun < 5)
+        else if (GV.enemyKillCountGun > 0 && GV.enemyKillCountGun < 3)
         {
             enemyState = 2;
             ren.material.color = Color.blue;
         }
-        else if (GV.enemyKillCountGun >= 5)
+        else if (GV.enemyKillCountGun >= 3)
         {
             enemyState = 3;
         }
@@ -130,19 +132,19 @@ public class PoliticianController : MonoBehaviour
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            if (transform.position.x > playerTransV3.x && transform.position.y > playerTransV3.y && distance < 10)
+            if (transform.position.x > playerTransV3.x && transform.position.y > playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x + escapeSpeed * Time.deltaTime, transform.position.y + escapeSpeed * Time.deltaTime, transform.position.z);
             }
-            else if (transform.position.x > playerTransV3.x && transform.position.y < playerTransV3.y && distance < 10)
+            else if (transform.position.x > playerTransV3.x && transform.position.y < playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x + escapeSpeed * Time.deltaTime, transform.position.y - escapeSpeed * Time.deltaTime, transform.position.z);
             }
-            else if (transform.position.x < playerTransV3.x && transform.position.y > playerTransV3.y && distance < 10)
+            else if (transform.position.x < playerTransV3.x && transform.position.y > playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x - escapeSpeed * Time.deltaTime, transform.position.y + escapeSpeed * Time.deltaTime, transform.position.z);
             }
-            else if (transform.position.x < playerTransV3.x && transform.position.y < playerTransV3.y && distance < 10)
+            else if (transform.position.x < playerTransV3.x && transform.position.y < playerTransV3.y && distance < 13)
             {
                 transform.position = new Vector3(transform.position.x - escapeSpeed * Time.deltaTime, transform.position.y - escapeSpeed * Time.deltaTime, transform.position.z);
             }
@@ -152,7 +154,7 @@ public class PoliticianController : MonoBehaviour
             LookAt();
             weapon.SetActive(false);
             shield.SetActive(false);
-            StartCoroutine(Shake(1f, .01f));
+            StartCoroutine(Shake(1f, .05f));
         }
         else if (enemyState == 0)
         {

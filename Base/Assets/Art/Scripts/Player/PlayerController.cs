@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class PlayerController : MonoBehaviour
 
     public GameObject B1;
     public GameObject B2;
+
+    public GameObject sensor;
+
+    public GameObject End1;
+    public GameObject End2;
+    public GameObject End3;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +55,11 @@ public class PlayerController : MonoBehaviour
         {
             isAttacking = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -71,6 +83,23 @@ public class PlayerController : MonoBehaviour
         {
             B2.SetActive(true);
         }
+        if (collision.gameObject.tag == "E1")
+        {
+            Time.timeScale = 0;
+            if (GV.enemyKillCountGun >= 1)
+            {
+                End1.SetActive(true);
+            }
+            else if (GV.enemyKillCountTotal >= 1 && GV.enemyKillCountSword >= 1)
+            {
+                End2.SetActive(true);
+            }
+            else if (GV.enemyKillCountTotal == 0)
+            {
+                End3.SetActive(true);
+            }
+        }
+
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -84,11 +113,13 @@ public class PlayerController : MonoBehaviour
         {
             B2.SetActive(false);
         }
+
+  
     }
 
     void RoomX()
     {
-        if (GV.enemyKillCountSword > 30)
+        if (GV.enemyKillCountSword > 5)
         {
             if (move)
             {
