@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public GlobalVary GV;
     public portal pt;
     private bool move = true;
+    public bool switchWeapon = false;
 
     public GameObject B1;
     public GameObject B2;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "GunDrop")
         {
+            switchWeapon = true;
             Destroy(collision.gameObject);
         }
 
@@ -99,7 +102,6 @@ public class PlayerController : MonoBehaviour
                 End3.SetActive(true);
             }
         }
-
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -113,8 +115,6 @@ public class PlayerController : MonoBehaviour
         {
             B2.SetActive(false);
         }
-
-  
     }
 
     void RoomX()
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
             if (move)
             {
                 pt.goToPos = transform.position;
-                transform.position = new Vector3(-142.5f, -21f, 0);
+                transform.position = new Vector3(-142.8f, -21f, 0);
                 move = false;
             }
         }

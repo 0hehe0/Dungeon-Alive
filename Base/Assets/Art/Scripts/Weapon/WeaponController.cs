@@ -11,19 +11,25 @@ public class WeaponController : MonoBehaviour
     public GameObject currentShield;
     public GameObject[] shieldList;
     public int shieldNum;
+
+    public PlayerController PC;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentWeapon = weaponList[weaponNum];
-        currentShield = shieldList[shieldNum];
-        SwitchWeapon();
-        SwitchShield();
+        if (PC.switchWeapon) 
+        {
+            currentWeapon = weaponList[weaponNum];
+            currentShield = shieldList[shieldNum];
+            SwitchWeapon();
+            SwitchShield();
+        }
     }
 
     void SwitchWeapon()

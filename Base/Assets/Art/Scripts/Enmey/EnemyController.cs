@@ -35,6 +35,7 @@ public class EnemyController : MonoBehaviour
         rand = Random.value;
 
         ren = GetComponent<Renderer>();
+
         escapeSpeed = 4;
     }
 
@@ -77,7 +78,7 @@ public class EnemyController : MonoBehaviour
                 enemyState = 2;
             }
         }
-        else if (GV.enemyKillCountSword >= 15 && GV.enemyKillCountSword < 25 && GV.enemyKillCountGun == 0 && distance < 15)
+        else if (GV.enemyKillCountSword >= 15 && GV.enemyKillCountGun == 0 && distance < 15)
         {
             enemyState = 3;
             LookAt();
