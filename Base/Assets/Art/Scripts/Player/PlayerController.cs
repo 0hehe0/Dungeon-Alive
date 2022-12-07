@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public Renderer ren;
+    public GameObject equip;
     public float speed;
     public float Hmovement;
     public float Vmovement;
@@ -25,7 +27,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ren = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
@@ -68,7 +70,10 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "EnemyWeapon")
         {
-            Destroy(this.gameObject);
+            Time.timeScale = 0;
+            ren.material.color = new Color(0, 0, 0, 0);
+            equip.SetActive(false);
+            End1.SetActive(true);
         }
 
         if (collision.gameObject.tag == "GunDrop")

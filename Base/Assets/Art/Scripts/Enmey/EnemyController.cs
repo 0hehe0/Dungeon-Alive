@@ -207,7 +207,7 @@ public class EnemyController : MonoBehaviour
             LookAt();
             weapon.SetActive(false);
             shield.SetActive(false);
-            StartCoroutine(Shake(1f, .05f));
+            StartCoroutine(Shake(1f, .03f));
         }
         else if (enemyState == 0)
         {

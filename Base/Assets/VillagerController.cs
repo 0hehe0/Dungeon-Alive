@@ -100,7 +100,7 @@ public class VillagerController : MonoBehaviour
         else if (enemyState == 2)
         {
             LookAt();
-            StartCoroutine(Shake(1f, .05f));
+            StartCoroutine(Shake(1f, .03f));
         }
         else
         {
